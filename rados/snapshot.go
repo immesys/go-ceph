@@ -121,13 +121,13 @@ func (ioctx *IOContext) SnapGetName(snap uint64) (string, error) {
 
 // SnapGetStamp finds when a pool snapshot occurred
 func (ioctx *IOContext) SnapGetStamp(snap uint64) (time.Time, error) {
-	var nsec int64
+	var sec int64
 	ret := C.rados_ioctx_snap_get_stamp(
-		ioctx.ioctx, C.rados_snap_t(snap), (*C.time_t)(unsafe.Pointer(&nsec)),
+		ioctx.ioctx, C.rados_snap_t(snap), (*C.time_t)(unsafe.Pointer(&sec)),
 	)
 	if err := getError(ret); err != nil {
 		return time.Time{}, err
 	}
 
-	return time.Unix(0, nsec), nil
+	return time.Unix(sec, 0), nil
 }
