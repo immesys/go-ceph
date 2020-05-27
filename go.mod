@@ -1,4 +1,4 @@
-module github.com/immesys/go-ceph
+module github.com/ceph/go-ceph
 
 go 1.12
 
